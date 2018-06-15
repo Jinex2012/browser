@@ -1,5 +1,15 @@
 package browser
 
+import (
+	"fmt"
+	"reflect"
+	"strconv"
+	"syscall/js"
+	"unicode"
+
+	"github.com/fatih/structs"
+)
+
 // HTML DOM events.
 const (
 	EventAbort          = "abort"
@@ -85,3 +95,73 @@ const (
 	EventWaiting        = "waiting"
 	EventWheel          = "wheel"
 )
+
+// To be implemented further
+type MouseEvent struct {
+	AltKey    bool
+	Button    int
+	Buttons   int
+	ClientX   int
+	ClientY   int
+	CtrlKey   bool
+	MetaKey   bool
+	MovementX int
+	MovementY int
+	OffsetX   int
+	OffsetY   int
+	PageX     int
+	PageY     int
+	ScreenX   int
+	ScreenY   int
+}
+
+//  Dynamically map Map value to  Struct values
+
+func setField(obj interface{}, name string, value interface{}) error {
+	structValue := reflect.ValueOf(obj).Elem()
+	structFieldValue := structValue.FieldByName(name)
+
+	if !structFieldValue.IsValid() {
+		return fmt.Errorf("No such field: %s in obj", name)
+	}
+
+	if !structFieldValue.CanSet() {
+		return fmt.Errorf("Cannot set %s field value", name)
+	}
+
+	structFieldType := structFieldValue.Type()
+
+	var val reflect.Value
+	switch structFieldType.String() {
+	case "int":
+		i, _ := strconv.Atoi(value.(string))
+		val = reflect.ValueOf(i)
+		break
+	case "bool":
+		i, _ := strconv.ParseBool(value.(string))
+		val = reflect.ValueOf(i)
+		break
+	default:
+		val = reflect.ValueOf(value)
+		break
+	}
+
+	structFieldValue.Set(val)
+	return nil
+}
+
+func NewMouseEvent(val js.Value) (*MouseEvent, error) {
+
+	obj := &MouseEvent{}
+	m := structs.Map(obj)
+
+	for k := range m {
+		jk := []rune(k)
+		jk[0] = unicode.ToLower(jk[0])
+		err := setField(obj, k, val.Get(string(jk)).String())
+		if err != nil {
+			return nil, err
+		}
+	}
+	return obj, nil
+}
