@@ -38,8 +38,14 @@ func (e *Element) ClientHeight() int {
 
 	return e.el.Get("clientHeight").Int()
 }
-func (Element) ClientLeft() {}
-func (Element) ClientTop()  {}
+
+func (e *Element) ClientLeft() int {
+	return e.el.Get("clientLeft").Int()
+}
+
+func (e *Element) ClientTop() int {
+	return e.el.Get("clientTop").Int()
+}
 func (e *Element) ClientWidth() int {
 
 	return e.el.Get("clientWidth").Int()
