@@ -1,7 +1,7 @@
 // Package browser provides Go bindings to browser APIs.  This package is
 // intended to be used with WebAssembly to abstract Go developers from having
 // to deal with writing javascript inside of Go.
-package browser 
+package browser
 
 import (
 	"syscall/js"
@@ -9,6 +9,7 @@ import (
 
 // Window is a browser window.
 type Window struct {
+	Element
 	window         js.Value
 	Console        Debug
 	Document       Htmldoc
