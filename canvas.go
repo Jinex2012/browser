@@ -111,6 +111,11 @@ func (c *Canvas) Fill() {
 	c.context().Call("fill")
 }
 
+// Fills the current drawing(path).
+func (c *Canvas) Fill2(path js.Value) {
+	c.context().Call("fill", path)
+}
+
 // Font sets the canvas font (e.g. "30px Arial").
 func (c *Canvas) Font(font string) {
 	c.context().Set("font", js.ValueOf(font))
@@ -149,6 +154,11 @@ func (c *Canvas) IsPointInPath(x, y float64) bool {
 	return c.context().Call("isPointInPath", js.ValueOf(x), js.ValueOf(y)).Bool()
 }
 
+// Returns true if the specified poitn is in the current path, otherwise false.
+func (c *Canvas) IsPointInPath2(path js.Value, x, y float64) bool {
+	return c.context().Call("isPointInPath", path, js.ValueOf(x), js.ValueOf(y)).Bool()
+}
+
 // FillText draws text to the canvas.
 func (c *Canvas) FillText(str string, x, y float64) {
 	c.context().Call("fillText", js.ValueOf(str), js.ValueOf(x), js.ValueOf(y))
@@ -176,17 +186,24 @@ func (c *Canvas) TextBaseline(b string) {
 }
 
 // To be implemented
-func (c *Canvas) Rect(x, y, w, h float64)                        {}
-func (c *Canvas) Restore()                                       {}
-func (c *Canvas) Rotate(angle float64)                           {}
-func (c *Canvas) Save()                                          {}
-func (c *Canvas) Scale(x, y float64)                             {}
-func (c *Canvas) ShadowBlur()                                    {}
-func (c *Canvas) ShadowColor()                                   {}
-func (c *Canvas) ShadowOffsetX()                                 {}
-func (c *Canvas) ShadowOffsetY()                                 {}
-func (c *Canvas) StrokeRect(x, y, w, h float64)                  {}
-func (c *Canvas) StrokeStyle(value ...interface{})               {}
+func (c *Canvas) Rect(x, y, w, h float64) {
+	c.context().Call("rect", js.ValueOf(x), js.ValueOf(y), js.ValueOf(w), js.ValueOf(h))
+
+}
+func (c *Canvas) Restore()             {}
+func (c *Canvas) Rotate(angle float64) {}
+func (c *Canvas) Save()                {}
+func (c *Canvas) Scale(x, y float64)   {}
+func (c *Canvas) ShadowBlur()          {}
+func (c *Canvas) ShadowColor()         {}
+func (c *Canvas) ShadowOffsetX()       {}
+func (c *Canvas) ShadowOffsetY()       {}
+func (c *Canvas) StrokeRect(x, y, w, h float64) {
+	c.context().Call("strokeRect", js.ValueOf(x), js.ValueOf(y), js.ValueOf(w), js.ValueOf(h))
+}
+func (c *Canvas) StrokeStyle(str string) {
+	c.context().Set("strokeStyle", str)
+}
 func (c *Canvas) Translate(x, y float64)                         {}
 func (c *Canvas) GlobalAlpha(alpha float64)                      {}
 func (c *Canvas) GlobalCompositeOperation()                      {}
@@ -195,11 +212,18 @@ func (c *Canvas) MiterLimit()                                    {}
 func (c *Canvas) CreatePattern()                                 {}
 func (c *Canvas) CreateRadialGradient()                          {}
 func (c *Canvas) DrawImage(image interface{}, coords ...float64) {}
-func (c *Canvas) FillRect(x, y, w, h float64)                    {}
-func (c *Canvas) FillStyle(value ...interface{})                 {}
-func (c *Canvas) PutImageData(img *image.RGBA, x, y int)         {}
-func (c *Canvas) LineWidth(width float64)                        {}
-func (c *Canvas) AddColorStop()                                  {}
+func (c *Canvas) FillRect(x, y, w, h float64) {
+	c.context().Call("fillRect", js.ValueOf(x), js.ValueOf(y), js.ValueOf(w), js.ValueOf(h))
+
+}
+func (c *Canvas) FillStyle(str string) {
+	c.context().Set("fillStyle", str)
+}
+func (c *Canvas) PutImageData(img *image.RGBA, x, y int) {}
+func (c *Canvas) LineWidth(width float64) {
+	c.context().Set("lineWidth", width)
+}
+func (c *Canvas) AddColorStop() {}
 
 //func (c *Canvas) Context()                                       {}
 // Width returns the width of the canvas.

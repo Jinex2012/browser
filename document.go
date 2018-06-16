@@ -4,33 +4,42 @@ import "syscall/js"
 
 // Htmldoc is the root node of the HTML document.
 type Htmldoc struct {
+	Element
 	document js.Value
 }
 
 // CreateElement adds an elment to the DOM.
-func (h Htmldoc) CreateElement(n ElementTagName) Element {
+func (d Htmldoc) CreateElement(n ElementTagName) Element {
 
 	return Element{
-		el: h.document.Call("createElement", n),
+		el: d.document.Call("createElement", n),
 	}
 
 }
 
-// GetElementById receives an element from the DOM by its Id.
-func (d Htmldoc) GetElementById(id string) Element {
+// GetElementByID receives an element from the DOM by its Id.
+func (d Htmldoc) GetElementByID(id string) Element {
 	return Element{
 		el: d.document.Call("getElementById", id),
 	}
 }
 
+// GetElementsByTagName receives an element from the DOM by its Id.
+func (d Htmldoc) GetElementsByTagName(id string) Element {
+	return Element{
+		el: d.document.Call("getElementsByTagName", id),
+	}
+}
+
 // To be implemented
-func (Htmldoc) ActiveElement()    {}
-func (Htmldoc) AddEventListener() {}
-func (Htmldoc) AdoptNode()        {}
-func (Htmldoc) Anchors()          {}
-func (Htmldoc) Applets()          {}
-func (Htmldoc) BaseURI()          {}
-func (Htmldoc) Body()             {}
+func (Htmldoc) ActiveElement() {}
+
+// func (Htmldoc) AddEventListener() {}
+func (Htmldoc) AdoptNode() {}
+func (Htmldoc) Anchors()   {}
+func (Htmldoc) Applets()   {}
+func (Htmldoc) BaseURI()   {}
+func (Htmldoc) Body()      {}
 func (h *Htmldoc) Close() {
 	h.document.Call("close")
 }
@@ -55,7 +64,6 @@ func (Htmldoc) ExecCommand()            {}
 func (Htmldoc) Forms()                  {}
 func (Htmldoc) GetElementsByClassName() {}
 func (Htmldoc) GetElementsByName()      {}
-func (Htmldoc) GetElementsByTagName()   {}
 func (Htmldoc) HasFocus()               {}
 func (Htmldoc) Head()                   {}
 func (Htmldoc) Images()                 {}
