@@ -15,6 +15,7 @@ type Window struct {
 	Document       Htmldoc
 	LocalStorage   WebStorage
 	SessionStorage WebStorage
+	Path2D         Path2D
 }
 
 // GetWindow returns the main browser window object.
@@ -26,6 +27,7 @@ func GetWindow() Window {
 		Document:       Htmldoc{document: jsGlobal.Get("document")},
 		LocalStorage:   WebStorage{storage: jsGlobal.Get("localStorage")},
 		SessionStorage: WebStorage{storage: jsGlobal.Get("sessionStorage")},
+		Path2D:         Path2D{path2D: jsGlobal.Get("Path2D")},
 	}
 }
 
@@ -51,6 +53,7 @@ func NewWindow(url string) Window {
 		Document:       Htmldoc{document: w.Get("document")},
 		LocalStorage:   WebStorage{storage: jsGlobal.Get("localStorage")},
 		SessionStorage: WebStorage{storage: jsGlobal.Get("sessionStorage")},
+		Path2D:         Path2D{path2D: jsGlobal.Get("Path2D")},
 	}
 }
 
