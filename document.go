@@ -1,33 +1,21 @@
 package browser
 
-import "syscall/js"
-
 // Htmldoc is the root node of the HTML document.
 type Htmldoc struct {
 	Element
-	document js.Value
-}
-
-// CreateElement adds an elment to the DOM.
-func (d Htmldoc) CreateElement(n ElementTagName) Element {
-
-	return Element{
-		el: d.document.Call("createElement", n),
-	}
-
 }
 
 // GetElementByID receives an element from the DOM by its Id.
-func (d Htmldoc) GetElementByID(id string) Element {
+func (h Htmldoc) GetElementByID(id string) Element {
 	return Element{
-		el: d.document.Call("getElementById", id),
+		el: h.el.Call("getElementById", id),
 	}
 }
 
 // GetElementsByTagName receives an element from the DOM by its Id.
-func (d Htmldoc) GetElementsByTagName(id string) Element {
+func (h Htmldoc) GetElementsByTagName(id string) Element {
 	return Element{
-		el: d.document.Call("getElementsByTagName", id),
+		el: h.el.Call("getElementsByTagName", id),
 	}
 }
 
@@ -41,7 +29,7 @@ func (Htmldoc) Applets()   {}
 func (Htmldoc) BaseURI()   {}
 func (Htmldoc) Body()      {}
 func (h *Htmldoc) Close() {
-	h.document.Call("close")
+	h.el.Call("close")
 }
 func (Htmldoc) Cookie()                 {}
 func (Htmldoc) Charset()                {}
@@ -76,21 +64,21 @@ func (Htmldoc) Normalize()              {}
 func (Htmldoc) NormalizeDocument()      {}
 func (h *Htmldoc) Open() {
 
-	h.document.Call("open")
+	h.el.Call("open")
 
 }
 
 // QuerySelector returns the first matching element where class = s.
 func (h *Htmldoc) QuerySelector(s string) Element {
 
-	return Element{el: h.document.Call("querySelector", s)}
+	return Element{el: h.el.Call("querySelector", s)}
 
 }
 
 // QuerySelectorAll returns the list of elements where class = s.
 func (h *Htmldoc) QuerySelectorAll(s string) []Element {
 
-	js := h.document.Call("querySelectorAll", s)
+	js := h.el.Call("querySelectorAll", s)
 
 	e := make([]Element, js.Length())
 	for i := 0; i < js.Length(); i++ {
@@ -110,7 +98,7 @@ func (Htmldoc) Title()               {}
 func (Htmldoc) URL()                 {}
 func (h *Htmldoc) Write(s string) {
 
-	h.document.Call("write", s)
+	h.el.Call("write", s)
 
 }
 func (Htmldoc) Writeln() {}

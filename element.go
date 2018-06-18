@@ -125,12 +125,17 @@ func (e Element) Form() string {
 	return (e.el.Get("form").Get("id").String())
 }
 
-func (Element) Normalize()              {}
-func (Element) OffsetHeight()           {}
-func (Element) OffsetWidth()            {}
-func (Element) OffsetLeft()             {}
-func (Element) OffsetParent()           {}
-func (Element) OffsetTop()              {}
+func (Element) Normalize()    {}
+func (Element) OffsetHeight() {}
+func (Element) OffsetWidth()  {}
+func (e Element) OffsetLeft() float64 {
+	return e.el.Get("offsetLeft").Float()
+
+}
+func (Element) OffsetParent() {}
+func (e Element) OffsetTop() float64 {
+	return e.el.Get("offsetTop").Float()
+}
 func (Element) OwnerDocument()          {}
 func (Element) ParentNode()             {}
 func (Element) ParentElement()          {}
