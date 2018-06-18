@@ -201,9 +201,16 @@ func (c *Canvas) ShadowOffsetY()       {}
 func (c *Canvas) StrokeRect(x, y, w, h float64) {
 	c.context().Call("strokeRect", js.ValueOf(x), js.ValueOf(y), js.ValueOf(w), js.ValueOf(h))
 }
+func (c *Canvas) SetLineDash(a, b int) {
+	c.context().Call("setLineDash", js.Global.Get("Array").New(a, b))
+}
+func (c *Canvas) SetLineSolid() {
+	c.context().Call("setLineDash", js.Global.Get("Array").New())
+}
 func (c *Canvas) StrokeStyle(str string) {
 	c.context().Set("strokeStyle", str)
 }
+
 func (c *Canvas) Translate(x, y float64)                         {}
 func (c *Canvas) GlobalAlpha(alpha float64)                      {}
 func (c *Canvas) GlobalCompositeOperation()                      {}
@@ -221,7 +228,7 @@ func (c *Canvas) FillStyle(str string) {
 }
 func (c *Canvas) PutImageData(img *image.RGBA, x, y int) {}
 func (c *Canvas) LineWidth(width float64) {
-	c.context().Set("lineWidth", width)
+	c.context().Set("lineWidth", js.ValueOf(width))
 }
 func (c *Canvas) AddColorStop() {}
 

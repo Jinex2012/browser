@@ -23,7 +23,7 @@ func GetWindow() Window {
 	return Window{
 		window:         js.Global,
 		Console:        Debug{console: js.Global.Get("console")},
-		Document:       Htmldoc{document: js.Global.Get("document")},
+		Document:       Htmldoc{Element: Element{el: js.Global.Get("document")}},
 		LocalStorage:   WebStorage{storage: js.Global.Get("localStorage")},
 		SessionStorage: WebStorage{storage: js.Global.Get("sessionStorage")},
 		Path2D:         Path2D{path2D: js.Global.Get("Path2D")},
@@ -48,7 +48,7 @@ func NewWindow(url string) Window {
 	return Window{
 		window:         w,
 		Console:        Debug{console: w.Get("console")},
-		Document:       Htmldoc{document: w.Get("document")},
+		Document:       Htmldoc{Element: Element{el: js.Global.Get("document")}},
 		LocalStorage:   WebStorage{storage: js.Global.Get("localStorage")},
 		SessionStorage: WebStorage{storage: js.Global.Get("sessionStorage")},
 		Path2D:         Path2D{path2D: js.Global.Get("Path2D")},
