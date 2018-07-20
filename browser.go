@@ -22,21 +22,12 @@ type Window struct {
 func GetWindow() Window {
 	jsGlobal := js.Global()
 	return Window{
-<<<<<<< HEAD
 		window:         jsGlobal,
 		Console:        Debug{console: jsGlobal.Get("console")},
-		Document:       Htmldoc{document: jsGlobal.Get("document")},
+		Document:       Htmldoc{Element: Element{el: jsGlobal.Get("document")}},
 		LocalStorage:   WebStorage{storage: jsGlobal.Get("localStorage")},
 		SessionStorage: WebStorage{storage: jsGlobal.Get("sessionStorage")},
 		Path2D:         Path2D{path2D: jsGlobal.Get("Path2D")},
-=======
-		window:         js.Global,
-		Console:        Debug{console: js.Global.Get("console")},
-		Document:       Htmldoc{Element: Element{el: js.Global.Get("document")}},
-		LocalStorage:   WebStorage{storage: js.Global.Get("localStorage")},
-		SessionStorage: WebStorage{storage: js.Global.Get("sessionStorage")},
-		Path2D:         Path2D{path2D: js.Global.Get("Path2D")},
->>>>>>> Update APIs
 	}
 }
 
@@ -59,17 +50,10 @@ func NewWindow(url string) Window {
 	return Window{
 		window:         w,
 		Console:        Debug{console: w.Get("console")},
-<<<<<<< HEAD
-		Document:       Htmldoc{document: w.Get("document")},
+		Document:       Htmldoc{Element: Element{el: jsGlobal.Get("document")}},
 		LocalStorage:   WebStorage{storage: jsGlobal.Get("localStorage")},
 		SessionStorage: WebStorage{storage: jsGlobal.Get("sessionStorage")},
 		Path2D:         Path2D{path2D: jsGlobal.Get("Path2D")},
-=======
-		Document:       Htmldoc{Element: Element{el: js.Global.Get("document")}},
-		LocalStorage:   WebStorage{storage: js.Global.Get("localStorage")},
-		SessionStorage: WebStorage{storage: js.Global.Get("sessionStorage")},
-		Path2D:         Path2D{path2D: js.Global.Get("Path2D")},
->>>>>>> Update APIs
 	}
 }
 
