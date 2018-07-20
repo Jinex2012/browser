@@ -211,10 +211,12 @@ func (c *Canvas) StrokeStyle(str string) {
 	c.context().Set("strokeStyle", str)
 }
 
-func (c *Canvas) Translate(x, y float64)                         {}
-func (c *Canvas) GlobalAlpha(alpha float64)                      {}
-func (c *Canvas) GlobalCompositeOperation()                      {}
-func (c *Canvas) LineCap()                                       {}
+func (c *Canvas) Translate(x, y float64)    {}
+func (c *Canvas) GlobalAlpha(alpha float64) {}
+func (c *Canvas) GlobalCompositeOperation() {}
+func (c *Canvas) LineCap(str string) {
+	c.context().Set("lineCap", str)
+}
 func (c *Canvas) MiterLimit()                                    {}
 func (c *Canvas) CreatePattern()                                 {}
 func (c *Canvas) CreateRadialGradient()                          {}
