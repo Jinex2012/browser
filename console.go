@@ -18,18 +18,18 @@ func (d *Debug) Count() int {
 }
 
 // Error writes an error message to the console.
-func (d *Debug) Error(m string) {
+func (d *Debug) Error(m interface{}) {
 	d.console.Call("error", m)
 }
 
 // Info writes an information message to the console.
-func (d *Debug) Info(m string) {
+func (d *Debug) Info(m interface{}) {
 	d.console.Call("info", m)
 
 }
 
 // Warn writes an warning message to the console.
-func (d *Debug) Warn(m string) {
+func (d *Debug) Warn(m interface{}) {
 	d.console.Call("warn", m)
 }
 

@@ -20,13 +20,14 @@ type Window struct {
 
 // GetWindow returns the main browser window object.
 func GetWindow() Window {
+	jsGlobal := js.Global()
 	return Window{
-		window:         js.Global,
-		Console:        Debug{console: js.Global.Get("console")},
-		Document:       Htmldoc{Element: Element{el: js.Global.Get("document")}},
-		LocalStorage:   WebStorage{storage: js.Global.Get("localStorage")},
-		SessionStorage: WebStorage{storage: js.Global.Get("sessionStorage")},
-		Path2D:         Path2D{path2D: js.Global.Get("Path2D")},
+		window:         jsGlobal,
+		Console:        Debug{console: jsGlobal.Get("console")},
+		Document:       Htmldoc{Element: Element{el: jsGlobal.Get("document")}},
+		LocalStorage:   WebStorage{storage: jsGlobal.Get("localStorage")},
+		SessionStorage: WebStorage{storage: jsGlobal.Get("sessionStorage")},
+		Path2D:         Path2D{path2D: jsGlobal.Get("Path2D")},
 	}
 }
 
@@ -43,15 +44,17 @@ func Invoke(cb js.Callback) {
 // NewWindow creates a new browser window.  This is analogous to Javascript's
 // window.open().
 func NewWindow(url string) Window {
-	w := js.Global.Call("open", url)
+	jsGlobal := js.Global()
+	w := jsGlobal.Call("open", url)
 
 	return Window{
 		window:         w,
 		Console:        Debug{console: w.Get("console")},
-		Document:       Htmldoc{Element: Element{el: js.Global.Get("document")}},
-		LocalStorage:   WebStorage{storage: js.Global.Get("localStorage")},
-		SessionStorage: WebStorage{storage: js.Global.Get("sessionStorage")},
-		Path2D:         Path2D{path2D: js.Global.Get("Path2D")},
+		Document:       Htmldoc{Element: Element{el: jsGlobal.Get("document")}},
+		LocalStorage:   WebStorage{storage: jsGlobal.Get("localStorage")},
+		SessionStorage: WebStorage{storage: jsGlobal.Get("sessionStorage")},
+		Path2D:         Path2D{path2D: jsGlobal.Get("Path2D")},
+
 	}
 }
 
