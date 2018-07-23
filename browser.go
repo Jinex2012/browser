@@ -54,6 +54,7 @@ func NewWindow(url string) Window {
 		LocalStorage:   WebStorage{storage: jsGlobal.Get("localStorage")},
 		SessionStorage: WebStorage{storage: jsGlobal.Get("sessionStorage")},
 		Path2D:         Path2D{path2D: jsGlobal.Get("Path2D")},
+
 	}
 }
 
